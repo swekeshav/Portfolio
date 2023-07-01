@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "View Types";
+}
+
+This page contains a Partial View and a View Component
+
+<partial name="_SamplePartialView" />
+<style>
+    a {
+        padding: 5px;
+        margin: 5px;
+        color: white;
+    }
+
+    .main-div {
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+    }
+</style>
+
+<div class="text-center main-div">
+    <h1 class="display-4">Welcome</h1>
+    <h3>View Component Example</h3>
+
+    @(await Component.InvokeAsync("SocialLinks", new { IconsToShow = 5 }))
+
+</div>
+@*@(await Component.InvokeAsync("SocialLinks", new { IconsToShow = 5 }))  *@
