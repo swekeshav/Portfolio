@@ -1,0 +1,62 @@
+﻿@{
+    Layout = "_Layout";
+}
+<h1>Cost To Company</h1>
+
+<form class="mt-5 mb-5">
+    @*TODO: Use bootstrap grid here, 10 cols for slider, 2 cols for input box*@
+    <label for="salaryRange" class="fs-5 form-label">Example range (10 Lakh - 1 Crore)</label>
+    <input id="salaryRange" type="range" class="form-range" step="10000"
+           min="1000000" max="10000000" value="5000000" />
+    <input id="salaryInput" type="number" class="form-control" step="10000"
+           min="1000000" max="10000000" value="5000000" />
+</form>
+
+<div>
+    <label class="fs-5">Base Salary: <span id="baseSalary"></span></label>
+</div>
+<div>
+    <label class="fs-5">Gross Salary: <span id="grossSalary"></span></label>
+</div>
+<div>
+    <label class="fs-5">Employee PF: <span id="employeePF"></span></label>
+</div>
+<div>
+    <label class="fs-5">Employer PF: <span id="employerPF"></span></label>
+</div>
+
+@section Scripts{
+    <script>
+        $("#salaryRange").on('change', salaryRangeChanged);
+        $("#salaryInput").on('change', salaryInputChanged);
+
+        function salaryRangeChanged(){
+            var newSalary = $("#salaryRange").val();
+            $("#salaryInput").val(newSalary);
+            bifurcateSalary();
+        }
+
+        function salaryInputChanged(){
+            var newSalary = $("#salaryInput").val();
+            $("#salaryRange").val(newSalary);
+            bifurcateSalary();
+        }
+        //TODO: Convert this code to Javascript
+
+        bifurcateSalary();
+        function bifurcateSalary() {
+            //TODO: Put this script in a different file
+            var salaryWithPF = $("#salaryRange").val();
+            var basicSalary = Math.round(salaryWithPF / 2.24);
+            var grossSalary = basicSalary * 2;
+            var oneSidedPF = Math.round(basicSalary * 0.12);
+            //TODO: Show P.A (Per Annum) and P.M (Per Month) salary details
+            $("#baseSalary").text(basicSalary.toLocaleString('en-IN'));
+            $("#grossSalary").text(grossSalary.toLocaleString('en-IN'));
+            $("#employeePF").text(oneSidedPF.toLocaleString('en-IN'));
+            $("#employerPF").text(oneSidedPF.toLocaleString('en-IN'));
+        }
+    </script>
+}
+
+@*//Create an issue to show calculations in a new split page?*@
