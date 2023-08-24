@@ -49,7 +49,7 @@
         bifurcateSalary();
         function bifurcateSalary() {
             //TODO: Put this script in a different file
-			var grossSalary = $("#salaryRange").val();
+			var grossSalary = Number($("#salaryRange").val());
 			var basicSalary = Math.round(grossSalary / 2);
             var oneSidedPF = Math.round(basicSalary * 0.12);
 			var totalSalary = grossSalary + oneSidedPF;
