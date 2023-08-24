@@ -6,9 +6,9 @@
 <form class="mt-5 mb-5">
     @*TODO: Use bootstrap grid here, 10 cols for slider, 2 cols for input box*@
     <label for="salaryRange" class="fs-5 form-label">Example range (10 Lakh - 1 Crore)</label>
-    <input id="salaryRange" type="range" class="form-range" step="10000"
+    <input id="salaryRange" type="range" class="form-range" step="20000"
            min="1000000" max="10000000" value="5000000" />
-    <input id="salaryInput" type="number" class="form-control" step="10000"
+    <input id="salaryInput" type="number" class="form-control" step="50000"
            min="1000000" max="10000000" value="5000000" />
 </form>
 
@@ -23,6 +23,9 @@
 </div>
 <div>
     <label class="fs-5">Employer PF: <span id="employerPF"></span></label>
+</div>
+<div>
+	<label class="fs-5">Total Salary: <span id="totalSalary"></span></label>
 </div>
 
 @section Scripts{
@@ -46,15 +49,16 @@
         bifurcateSalary();
         function bifurcateSalary() {
             //TODO: Put this script in a different file
-            var salaryWithPF = $("#salaryRange").val();
-            var basicSalary = Math.round(salaryWithPF / 2.24);
-            var grossSalary = basicSalary * 2;
+			var grossSalary = $("#salaryRange").val();
+			var basicSalary = Math.round(grossSalary / 2);
             var oneSidedPF = Math.round(basicSalary * 0.12);
+			var totalSalary = grossSalary + oneSidedPF;
             //TODO: Show P.A (Per Annum) and P.M (Per Month) salary details
             $("#baseSalary").text(basicSalary.toLocaleString('en-IN'));
             $("#grossSalary").text(grossSalary.toLocaleString('en-IN'));
             $("#employeePF").text(oneSidedPF.toLocaleString('en-IN'));
-            $("#employerPF").text(oneSidedPF.toLocaleString('en-IN'));
+			$("#employerPF").text(oneSidedPF.toLocaleString('en-IN'));
+			$("#totalSalary").text(totalSalary.toLocaleString('en-IN'));
         }
     </script>
 }
