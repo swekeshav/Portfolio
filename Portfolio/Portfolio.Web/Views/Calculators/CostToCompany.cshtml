@@ -12,34 +12,57 @@
            min="1000000" max="10000000" value="5000000" />
 </form>
 
-<div>
-    <label class="fs-5">Base Salary: <span id="baseSalary"></span></label>
-</div>
-<div>
-    <label class="fs-5">Gross Salary: <span id="grossSalary"></span></label>
-</div>
-<div>
-    <label class="fs-5">Employee PF: <span id="employeePF"></span></label>
-</div>
-<div>
-    <label class="fs-5">Employer PF: <span id="employerPF"></span></label>
-</div>
-<div>
-	<label class="fs-5">Total Salary: <span id="totalSalary"></span></label>
-</div>
+<table id="salaryBifurcation" class="table fs-4 table-hover">
+    <thead>
+        <tr>
+            <th scope="col" class="w-50">Component</th>
+            <th scope="col" class="w-25">Yearly</th>
+            <th scope="col">Monthly</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">Gross Salary</th>
+            <td id="grossYearly"></td>
+            <td id="grossMonthly"></td>
+        </tr>
+        <tr>
+            <th scope="row">Basic Salary</th>
+            <td id="basicYearly"></td>
+            <td id="basicMonthly"></td>
+        </tr>
+        <tr>
+            <th scope="row">Employee's PF</th>
+            <td id="pfYearly"></td>
+            <td id="pfMonthly"></td>
+        </tr>
+        <tr>
+            <th scope="row">Tax Deducted at Source (TDS)</th>
+            <td id="tdsYearly"></td>
+            <td id="tdsMonthly"></td>
+        </tr>
+        <tr>
+            <th scope="row">After Tax Income</th>
+            <td id="incomeYearly"></td>
+            <td id="incomeMonthly"></td>
+        </tr>
+    </tbody>
+</table>
+
+Note: These calculations are approximate
 
 @section Scripts{
     <script>
         $("#salaryRange").on('change', salaryRangeChanged);
         $("#salaryInput").on('change', salaryInputChanged);
 
-        function salaryRangeChanged(){
+        function salaryRangeChanged() {
             var newSalary = $("#salaryRange").val();
             $("#salaryInput").val(newSalary);
             bifurcateSalary();
         }
 
-        function salaryInputChanged(){
+        function salaryInputChanged() {
             var newSalary = $("#salaryInput").val();
             $("#salaryRange").val(newSalary);
             bifurcateSalary();
@@ -49,16 +72,55 @@
         bifurcateSalary();
         function bifurcateSalary() {
             //TODO: Put this script in a different file
-			var grossSalary = Number($("#salaryRange").val());
-			var basicSalary = Math.round(grossSalary / 2);
-            var oneSidedPF = Math.round(basicSalary * 0.12);
-			var totalSalary = grossSalary + oneSidedPF;
-            //TODO: Show P.A (Per Annum) and P.M (Per Month) salary details
-            $("#baseSalary").text(basicSalary.toLocaleString('en-IN'));
-            $("#grossSalary").text(grossSalary.toLocaleString('en-IN'));
-            $("#employeePF").text(oneSidedPF.toLocaleString('en-IN'));
-			$("#employerPF").text(oneSidedPF.toLocaleString('en-IN'));
-			$("#totalSalary").text(totalSalary.toLocaleString('en-IN'));
+            var totalSalary = grossYearly + pfYearly;
+
+            var grossYearly = Number($("#salaryRange").val());
+            var grossMonthly = Math.round(grossYearly / 12);
+            $("#grossYearly").text(grossYearly.toLocaleString('en-IN'));
+            $("#grossMonthly").text(grossMonthly.toLocaleString('en-IN'));
+
+            var basicYearly = Math.round(grossYearly / 2);
+            var basicMonthly = Math.round(basicYearly / 12);
+            $("#basicYearly").text(basicYearly.toLocaleString('en-IN'));
+            $("#basicMonthly").text(basicMonthly.toLocaleString('en-IN'));
+
+            var pfYearly = Math.round(basicYearly * 0.12);
+            var pfMonthly = pfYearly / 12;
+            $("#pfYearly").text(pfYearly.toLocaleString('en-IN'));
+            $("#pfMonthly").text(pfMonthly.toLocaleString('en-IN'));
+
+            var tdsYearly = calculateTDS(grossYearly);
+            var tdsMonthly = Math.round(tdsYearly / 12);
+            $("#tdsYearly").text(tdsYearly.toLocaleString('en-IN'));
+            $("#tdsMonthly").text(tdsMonthly.toLocaleString('en-IN'));
+
+            var incomeYearly = grossYearly - pfYearly - tdsYearly;
+            var incomeMonthly = grossMonthly - pfMonthly - tdsMonthly;
+            $("#incomeYearly").text(incomeYearly.toLocaleString('en-IN'));
+            $("#incomeMonthly").text(incomeMonthly.toLocaleString('en-IN'));
+        }
+
+        function calculateTDS(salary) {
+            var applicableTDS = 0;
+            var fifteenLakhs = 1500000;
+            var twelveLakhs = 1200000;
+            var nineLakhs = 900000;
+            var sixLakhs = 600000;
+            var threeLakhs = 300000;
+
+            if (salary > fifteenLakhs) {
+                applicableTDS = 150500 + (salary - fifteenLakhs) * 0.30;
+            } else if (salary > twelveLakhs) {
+                applicableTDS = 90000 + (salary - twelveLakhs) * 0.20;
+            } else if (salary > nineLakhs) {
+                applicableTDS = 45000 + (salary - nineLakhs) * 0.15;
+            } else if (salary > sixLakhs) {
+                applicableTDS = 15000 + (salary - sixLakhs) * 0.10;
+            } else if (salary > threeLakhs) {
+                applicableTDS = (salary - threeLakhs) * 0.05;
+            }
+
+            return applicableTDS;
         }
     </script>
 }
