@@ -52,6 +52,8 @@ function calculateTDS(salary) {
     var sixLakhs = 600000;
     var threeLakhs = 300000;
 
+    var salary = salary - 50000; // Standard Deduction from FY23-24
+
     if (salary > fifteenLakhs) {
         applicableTDS = 150500 + (salary - fifteenLakhs) * 0.30;
     } else if (salary > twelveLakhs) {
