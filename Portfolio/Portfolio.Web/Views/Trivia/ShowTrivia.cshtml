@@ -1,0 +1,30 @@
+﻿@using System.Text.Json;
+@{
+    var result = (TriviaQuestionsList?)ViewData["triviaQuestionsList"];
+    var questions = result.Results;
+    var serializedQuestions = JsonSerializer.Serialize(questions);
+}
+<h1>Source: https://github.com/public-apis/public-apis</h1>
+<h1>Source: https://opentdb.com/</h1>
+<table id="salaryBifurcation" class="table fs-5 table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Category</th>
+            <th scope="col">Difficulty</th>
+            <th scope="col">Question</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var question in questions)
+        {
+            <tr>
+                <td>@question.Category</td>
+                <td>@question.Difficulty</td>
+                <td>@question.Question</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    console.log(@Html.Raw(serializedQuestions));
+</script>
