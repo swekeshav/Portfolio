@@ -4,12 +4,17 @@
 <h1>Cost To Company</h1>
 
 <form class="mt-5 mb-5">
-    @*TODO: Use bootstrap grid here, 10 cols for slider, 2 cols for input box*@
-    <label for="salaryRange" class="fs-5 form-label">Example range (10 Lakh - 1 Crore)</label>
-    <input id="salaryRange" type="range" class="form-range" step="20000"
-           min="1000000" max="10000000" value="5000000" />
-    <input id="salaryInput" type="number" class="form-control" step="50000"
-           min="1000000" max="10000000" value="5000000" />
+    <label for="salarySlider" class="fs-5 form-label">Example range (10 Lakh - 1 Crore)</label>
+    <div class="d-flex">
+        <div class="col-2 me-3">
+            <input id="salaryInput" type="number" class="form-control fs-5" step="50000"
+                   min="2000000" max="8000000" value="5000000" />
+        </div>
+        <div class="col-10 align-self-center">
+            <input id="salarySlider" type="range" class="form-range" step="20000"
+                   min="2000000" max="8000000" value="5000000" />
+        </div>
+    </div>
 </form>
 
 <table id="salaryBifurcation" class="table fs-4 table-hover">
@@ -52,77 +57,5 @@
 Note: These calculations are approximate
 
 @section Scripts{
-    <script>
-        $("#salaryRange").on('change', salaryRangeChanged);
-        $("#salaryInput").on('change', salaryInputChanged);
-
-        function salaryRangeChanged() {
-            var newSalary = $("#salaryRange").val();
-            $("#salaryInput").val(newSalary);
-            bifurcateSalary();
-        }
-
-        function salaryInputChanged() {
-            var newSalary = $("#salaryInput").val();
-            $("#salaryRange").val(newSalary);
-            bifurcateSalary();
-        }
-        //TODO: Convert this code to Javascript
-
-        bifurcateSalary();
-        function bifurcateSalary() {
-            //TODO: Put this script in a different file
-            var totalSalary = grossYearly + pfYearly;
-
-            var grossYearly = Number($("#salaryRange").val());
-            var grossMonthly = Math.round(grossYearly / 12);
-            $("#grossYearly").text(grossYearly.toLocaleString('en-IN'));
-            $("#grossMonthly").text(grossMonthly.toLocaleString('en-IN'));
-
-            var basicYearly = Math.round(grossYearly / 2);
-            var basicMonthly = Math.round(basicYearly / 12);
-            $("#basicYearly").text(basicYearly.toLocaleString('en-IN'));
-            $("#basicMonthly").text(basicMonthly.toLocaleString('en-IN'));
-
-            var pfYearly = Math.round(basicYearly * 0.12);
-            var pfMonthly = pfYearly / 12;
-            $("#pfYearly").text(pfYearly.toLocaleString('en-IN'));
-            $("#pfMonthly").text(pfMonthly.toLocaleString('en-IN'));
-
-            var tdsYearly = calculateTDS(grossYearly);
-            var tdsMonthly = Math.round(tdsYearly / 12);
-            $("#tdsYearly").text(tdsYearly.toLocaleString('en-IN'));
-            $("#tdsMonthly").text(tdsMonthly.toLocaleString('en-IN'));
-
-            var incomeYearly = grossYearly - pfYearly - tdsYearly;
-            var incomeMonthly = grossMonthly - pfMonthly - tdsMonthly;
-            $("#incomeYearly").text(incomeYearly.toLocaleString('en-IN'));
-            $("#incomeMonthly").text(incomeMonthly.toLocaleString('en-IN'));
-        }
-
-        function calculateTDS(salary) {
-            var applicableTDS = 0;
-            var fifteenLakhs = 1500000;
-            var twelveLakhs = 1200000;
-            var nineLakhs = 900000;
-            var sixLakhs = 600000;
-            var threeLakhs = 300000;
-
-            if (salary > fifteenLakhs) {
-                applicableTDS = 150500 + (salary - fifteenLakhs) * 0.30;
-            } else if (salary > twelveLakhs) {
-                applicableTDS = 90000 + (salary - twelveLakhs) * 0.20;
-            } else if (salary > nineLakhs) {
-                applicableTDS = 45000 + (salary - nineLakhs) * 0.15;
-            } else if (salary > sixLakhs) {
-                applicableTDS = 15000 + (salary - sixLakhs) * 0.10;
-            } else if (salary > threeLakhs) {
-                applicableTDS = (salary - threeLakhs) * 0.05;
-            }
-
-            return applicableTDS;
-        }
-    </script>
+    <script src="~/js/salary-calculator.js" type="module"></script>
 }
-
-@*//Create an issue to show calculations in a new split page?*@
