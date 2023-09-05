@@ -1,4 +1,5 @@
 using Portfolio.Web.Services;
+using Serilog;
 
 namespace Portfolio.Web;
 
@@ -7,7 +8,17 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Warning()
+                .WriteTo.Console()
+                .WriteTo.File("logs/myapp.txt", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+
+        builder.Host.UseSerilog();
+
         var services = builder.Services;
+
         // Add services to the container.
         services.AddControllersWithViews();
 
@@ -39,7 +50,8 @@ public class Program
 
         app.MapControllerRoute(
             name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
+        pattern: "{controller=Trivia}/{action=ShowTrivia}");
+        //pattern: "{controller=Home}/{action=Index}/{id?}");
 
         app.Run();
     }
