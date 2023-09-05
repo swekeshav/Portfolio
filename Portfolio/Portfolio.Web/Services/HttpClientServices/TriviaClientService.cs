@@ -16,12 +16,16 @@ public class TriviaClientService : ITriviaClientService
 
     public async Task<TriviaQuestionsList?> FetchRandomTrivia()
     {
-        const string quantity = "amount=50";
-        HttpRequestMessage requestMessage = new(HttpMethod.Get, _httpClient.BaseAddress + quantity);
+        const string queryString = "amount=10";
+        HttpRequestMessage requestMessage = new(HttpMethod.Get, _httpClient.BaseAddress + queryString);
+
         var response = await _httpClient.SendAsync(requestMessage);
         var responseBody = await response.Content.ReadAsStringAsync();
-        var deserializedData = JsonSerializer.Deserialize<TriviaQuestionsList>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-        foreach (var data in deserializedData.Results)
+
+        var deserializedData = JsonSerializer.Deserialize<TriviaQuestionsList>(responseBody,
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+        foreach (var data in deserializedData!.Results)
         {
             data.Question = HttpUtility.HtmlDecode(data.Question);
             data.Difficulty = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(data.Difficulty.ToLower());
