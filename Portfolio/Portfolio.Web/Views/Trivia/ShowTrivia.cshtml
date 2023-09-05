@@ -1,0 +1,39 @@
+﻿@using System.Text.Json;
+@model Portfolio.Web.Models.TriviaQuestionsList;
+
+@* We can check Model for null, if exception occurs *@
+@if (Model != null)
+{
+    <div class="d-flex justify-content-around my-5">
+        <h3>Source: <a href="https://opentdb.com/api_config.php">Open Trivia</a></h3>
+        <h3>Referrer: <a href="https://github.com/public-apis/public-apis#games--comics">Public APIs</a></h3>
+    </div>
+    <table id="salaryBifurcation" class="table fs-5 table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Category</th>
+                <th scope="col">Difficulty</th>
+                <th scope="col">Question</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var question in Model.Results)
+            {
+                <tr>
+                    <td>@question.Category</td>
+                    <td>@question.Difficulty</td>
+                    <td>@question.Question</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <i class="mt-2">Note: Later these trivias can be made user interactive too, if required.</i>
+    <script>
+        @* Html.Raw can be used to render the serialized json *@
+        console.log(@Html.Raw(JsonSerializer.Serialize(Model.Results)));
+    </script>
+}
+else
+{
+    <h1>Something went wrong. Please try again later</h1>
+}
