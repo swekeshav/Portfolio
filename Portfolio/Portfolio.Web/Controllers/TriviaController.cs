@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Portfolio.Web.Filters;
 using Portfolio.Web.Models;
 using Portfolio.Web.Services;
 
 namespace Portfolio.Web.Controllers;
 
-public class TriviaController : Controller
+[TypeFilter(typeof(ViewExceptionFilter))]
+public class TriviaController : ControllerBase
 {
     private readonly ITriviaService _triviaService;
     private readonly ILogger<TriviaController> _logger;
@@ -17,15 +19,8 @@ public class TriviaController : Controller
 
     public async Task<IActionResult> ShowTrivia()
     {
-        TriviaQuestionsList? questions = null;
-        try
-        {
-            questions = await _triviaService.RetrieveTrivia();
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex.ToString());
-        }
+        TriviaQuestionsList? questions = await _triviaService.RetrieveTrivia();
+        throw new ArgumentNullException();
         return View(questions);
     }
 }

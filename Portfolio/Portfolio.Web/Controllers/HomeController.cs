@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace Portfolio.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ControllerBase
     {
         private readonly ILogger<HomeController> _logger;
 
