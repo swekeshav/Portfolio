@@ -9,18 +9,15 @@ namespace Portfolio.Web.Controllers;
 public class TriviaController : ControllerBase
 {
     private readonly ITriviaService _triviaService;
-    private readonly ILogger<TriviaController> _logger;
 
-    public TriviaController(ITriviaService triviaService, ILogger<TriviaController> logger)
+    public TriviaController(ITriviaService triviaService)
     {
         _triviaService = triviaService;
-        _logger = logger;
     }
 
     public async Task<IActionResult> ShowTrivia()
     {
         TriviaQuestionsList? questions = await _triviaService.RetrieveTrivia();
-        throw new ArgumentNullException();
         return View(questions);
     }
 }
