@@ -19,6 +19,7 @@ public class APIExceptionFilter : IExceptionFilter
         if (!_hostEnvironment.IsDevelopment())
         {
             _logger.LogError(context.Exception.Message);
+            context.ExceptionHandled = true;
             return;
         }
         context.Result = new ContentResult
