@@ -1,4 +1,8 @@
-﻿@using System.Text.Json;
+﻿@{
+    Layout = "_Layout";
+}
+
+@using System.Text.Json;
 @model Portfolio.Web.Models.TriviaQuestionsList;
 
 @* We can check Model for null, if exception occurs *@
@@ -28,10 +32,31 @@
         </tbody>
     </table>
     <i class="mt-2">Note: Later these trivias can be made user interactive too, if required.</i>
+    <table id="myTable" class="display">
+        <thead>
+            <tr>
+                <th>Column 1</th>
+                <th>Column 2</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Row 1 Data 1</td>
+                <td>Row 1 Data 2</td>
+            </tr>
+            <tr>
+                <td>Row 2 Data 1</td>
+                <td>Row 2 Data 2</td>
+            </tr>
+        </tbody>
+    </table>
+    @section Scripts{
     <script>
         @* Html.Raw can be used to render the serialized json *@
-        console.log(@Html.Raw(JsonSerializer.Serialize(Model.Results)));
+            console.log(@Html.Raw(JsonSerializer.Serialize(Model.Results)));
+        var table = new DataTable('#myTable');
     </script>
+    }
 }
 else
 {
