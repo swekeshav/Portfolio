@@ -4,5 +4,5 @@ namespace Portfolio.Web.Services;
 
 public interface ITriviaService
 {
-    Task<TriviaQuestionsList?> RetrieveTrivia();
+	Task RetrieveTriviaQuestions(Paginator<TriviaQuestionInfo> paginator, TriviaQuestionsSearchFilter searchFilter);
 }

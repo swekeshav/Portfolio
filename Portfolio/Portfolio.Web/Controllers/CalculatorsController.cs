@@ -4,8 +4,8 @@ namespace Portfolio.Web.Controllers;
 
 public class CalculatorsController : ControllerBase
 {
-    public IActionResult CostToCompany()
-    {
-        return View();
-    }
+	public IActionResult CostToCompany()
+	{
+		return View();
+	}
 }

@@ -5,26 +5,26 @@ namespace Portfolio.Web.Filters;
 
 public class APIExceptionFilter : IExceptionFilter
 {
-    private readonly IHostEnvironment _hostEnvironment;
-    private readonly ILogger<ViewExceptionFilter> _logger;
+	private readonly IHostEnvironment _hostEnvironment;
+	private readonly ILogger<ViewExceptionFilter> _logger;
 
-    public APIExceptionFilter(IHostEnvironment hostEnvironment, ILogger<ViewExceptionFilter> logger)
-    {
-        _hostEnvironment = hostEnvironment;
-        _logger = logger;
-    }
+	public APIExceptionFilter(IHostEnvironment hostEnvironment, ILogger<ViewExceptionFilter> logger)
+	{
+		_hostEnvironment = hostEnvironment;
+		_logger = logger;
+	}
 
-    public void OnException(ExceptionContext context)
-    {
-        if (!_hostEnvironment.IsDevelopment())
-        {
-            _logger.LogError(context.Exception.Message);
-            context.ExceptionHandled = true;
-            return;
-        }
-        context.Result = new ContentResult
-        {
-            Content = context.Exception.ToString()
-        };
-    }
+	public void OnException(ExceptionContext context)
+	{
+		if (!_hostEnvironment.IsDevelopment())
+		{
+			_logger.LogError(context.Exception.Message);
+			context.ExceptionHandled = true;
+			return;
+		}
+		context.Result = new ContentResult
+		{
+			Content = context.Exception.ToString()
+		};
+	}
 }
