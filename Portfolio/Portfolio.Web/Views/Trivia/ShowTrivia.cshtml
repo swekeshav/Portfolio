@@ -1,64 +1,108 @@
 ﻿@{
-    Layout = "_Layout";
+	Layout = "_Layout";
 }
 
-@using System.Text.Json;
-@model Portfolio.Web.Models.TriviaQuestionsList;
+<div class="d-flex justify-content-around my-5">
+	<h3>Source: <a href="https://opentdb.com/api_config.php">Open Trivia</a></h3>
+	<h3>Referrer: <a href="https://github.com/public-apis/public-apis#games--comics">Public APIs</a></h3>
+</div>
 
-@* We can check Model for null, if exception occurs *@
-@if (Model != null)
-{
-    <div class="d-flex justify-content-around my-5">
-        <h3>Source: <a href="https://opentdb.com/api_config.php">Open Trivia</a></h3>
-        <h3>Referrer: <a href="https://github.com/public-apis/public-apis#games--comics">Public APIs</a></h3>
-    </div>
-    <table id="salaryBifurcation" class="table fs-5 table-hover">
-        <thead>
-            <tr>
-                <th scope="col">Category</th>
-                <th scope="col">Difficulty</th>
-                <th scope="col">Question</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var question in Model.Results)
-            {
-                <tr>
-                    <td>@question.Category</td>
-                    <td>@question.Difficulty</td>
-                    <td>@question.Question</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <i class="mt-2">Note: Later these trivias can be made user interactive too, if required.</i>
-    <table id="myTable" class="display">
-        <thead>
-            <tr>
-                <th>Column 1</th>
-                <th>Column 2</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Row 1 Data 1</td>
-                <td>Row 1 Data 2</td>
-            </tr>
-            <tr>
-                <td>Row 2 Data 1</td>
-                <td>Row 2 Data 2</td>
-            </tr>
-        </tbody>
-    </table>
-    @section Scripts{
-    <script>
-        @* Html.Raw can be used to render the serialized json *@
-            console.log(@Html.Raw(JsonSerializer.Serialize(Model.Results)));
-        var table = new DataTable('#myTable');
-    </script>
-    }
-}
-else
-{
-    <h1>Something went wrong. Please try again later</h1>
+<table id="triviaQuestionsTable" class="fs-5 table table-hover table-striped">
+	<colgroup>
+		<col style="width:30%;" />
+		<col style="width:15%;" />
+		<col style="width:55%;" />
+	</colgroup>
+	<thead>
+		<tr>
+			<th>Category</th>
+			<th>Difficulty</th>
+			<th>Question</th>
+		</tr>
+	</thead>
+	<tfoot>
+		<tr>
+			<th class="ps-0">
+				<select id="trivia-category" class="form-control">
+					<option value="any">Any Category</option>
+					<option value="9">General Knowledge</option>
+					<option value="10">Entertainment: Books</option>
+					<option value="11">Entertainment: Film</option>
+					<option value="12">Entertainment: Music</option>
+					<option value="13">Entertainment: Musicals & Theatres</option>
+					<option value="14">Entertainment: Television</option>
+					<option value="15">Entertainment: Video Games</option>
+					<option value="16">Entertainment: Board Games</option>
+					<option value="17">Science & Nature</option>
+					<option value="18">Science: Computers</option>
+					<option value="19">Science: Mathematics</option>
+					<option value="20">Mythology</option>
+					<option value="21">Sports</option>
+					<option value="22">Geography</option>
+					<option value="23">History</option>
+					<option value="24">Politics</option>
+					<option value="25">Art</option>
+					<option value="26">Celebrities</option>
+					<option value="27">Animals</option>
+					<option value="28">Vehicles</option>
+					<option value="29">Entertainment: Comics</option>
+					<option value="30">Science: Gadgets</option>
+					<option value="31">Entertainment: Japanese Anime & Manga</option>
+					<option value="32">Entertainment: Cartoon & Animations</option>
+				</select>
+			</th>
+			<th class="ps-0">
+				<select id="trivia-difficulty" class="form-control">
+					<option value="any">Any Difficulty</option>
+					<option value="easy">Easy</option>
+					<option value="medium">Medium</option>
+					<option value="hard">Hard</option>
+				</select>
+			</th>
+		</tr>
+	</tfoot>
+</table>
+<i class="mt-2">Note: Later these trivias can be made user interactive too, if required.</i>
+
+@section Scripts{
+	<script>
+		$(document).ready(function () {
+			var triviaTable = $("#triviaQuestionsTable").DataTable(
+				{
+					"pageLength": 10,
+					"dom": "ltip",
+					"lengthMenu": [[10, 20, 30], [10, 20, 30]],
+					"ajax": {
+						"url": "/api/trivia/questions",
+						"datatype": "json",
+						"data": function (d) {
+							d.Category = $("#trivia-category").val();
+							d.Difficulty = $("#trivia-difficulty").val();
+						}
+					},
+					"columns": [
+						{ "data": "category", "name": "Category" },
+						{ "data": "difficulty", "name": "Difficulty" },
+						{ "data": "question", "name": "Question" },
+					],
+					"language": {
+						"emptyTable": "Enough data may not be available."
+					}
+				});
+
+			var keyupTimeout;
+			triviaTable.columns().every(function () {
+				$("select", this.footer()).on('keyup change', function (event) {
+					if (keyupTimeout) {
+						clearTimeout(keyupTimeout);
+					}
+					keyupTimeout = setTimeout(function () {
+						triviaTable.ajax.reload();
+					}, 1000);
+				})
+			});
+
+			$("#triviaQuestionsTable tfoot tr").appendTo("#triviaQuestionsTable thead")
+		});
+	</script>
 }
