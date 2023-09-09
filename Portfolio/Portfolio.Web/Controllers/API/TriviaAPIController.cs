@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Portfolio.Web.Filters;
 using Portfolio.Web.Helpers;
 using Portfolio.Web.Models;
 using Portfolio.Web.Services;
@@ -17,6 +18,7 @@ public class TriviaAPIController : APIControllerBase
 	}
 
 	[HttpGet("questions")]
+	[TypeFilter(typeof(PaginationExceptionFilter))]
 	public async Task<IActionResult> GetTriviaQuestions([FromQuery] TriviaQuestionsSearchFilter parameters)
 	{
 		Paginator<TriviaQuestionInfo> paginator = PaginationHelper.BuildPaginator<TriviaQuestionInfo>(Request);
