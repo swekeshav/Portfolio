@@ -6,9 +6,9 @@ on:
     branches:
     - main
 
-# env:
-#   AZURE_WEBAPP_NAME: current-time-service
-#   AZURE_WEBAPP_PACKAGE_PATH: "./publish"
+env:
+  AZURE_WEBAPP_NAME: kvs-portfolio
+  AZURE_WEBAPP_PACKAGE_PATH: "./publish"
 
 jobs:
   publish:
@@ -31,9 +31,9 @@ jobs:
       - name: Publish
         run: dotnet publish ./Portfolio/Portfolio.sln --configuration Release --no-build --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
         
-      # - name: Deployment
-      #   uses: azure/webapps-deploy@v2
-      #   with:
-      #     app-name: ${{ env.AZURE_WEBAPP_NAME }}
-      #     publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-      #     package: "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
+      - name: Deployment
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+          package: "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
