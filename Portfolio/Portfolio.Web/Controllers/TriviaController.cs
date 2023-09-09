@@ -1,15 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Portfolio.Web.Filters;
+using Portfolio.Web.Services;
 
 namespace Portfolio.Web.Controllers;
 
 [TypeFilter(typeof(ViewExceptionFilter))]
 public class TriviaController : ControllerBase
 {
-	public TriviaController() { }
+	private readonly ITriviaService _triviaService;
+
+	public TriviaController(ITriviaService triviaService)
+	{
+		_triviaService = triviaService;
+	}
 
 	public IActionResult ShowTrivia()
 	{
-		return View();
+		var vm = _triviaService.RetrieveTriviaQuestionsViewModel();
+		return View(vm);
 	}
 }
