@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="~/Portfolio.Web.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" asp-append-version="true" />
 </head>
-<body>
+<body onunload="tabUnloadEventHandler()" onload="tabLoadEventHandler()">
     <header>
         <partial name="_NavigationBar" />
     </header>

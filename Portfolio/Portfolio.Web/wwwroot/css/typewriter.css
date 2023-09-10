@@ -1,0 +1,51 @@
+﻿.name-highlight {
+    color: rgba(223, 53, 69, 1);
+    text-decoration: underline;
+}
+
+#typewriter:after {
+    content: "|";
+    animation: blink 500ms linear infinite alternate;
+}
+
+#typewriter.jsLoaded:after {
+    content: "";
+    animation: none;
+}
+
+#typewriter {
+    font-size: 3em;
+    font-weight: 300;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+@-webkit-keyframes blink {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes blink {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
