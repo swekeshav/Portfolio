@@ -1,8 +1,36 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<link rel="stylesheet" href="~/css/typewriter.css" />
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<pre id="typewriter" class="text-center my-5">
+<span>Welcome!</span>
+   I am <b class="name-highlight">Keshav</b>, a Software Engineer.
+   And this is my Portfolio :)
+</pre>
+
+
+<div id="portfolio-items" class="row d-none">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Salary Bifurcator (IN)</h5>
+                <p class="card-text">This utility can be used to determine an approximate range for different salary component sections based on a gross salary number.</p>
+                <a class="btn btn-primary" asp-area="" asp-controller="Calculators" asp-action="CostToCompany">Bifurcate your salary</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Trivia</h5>
+                <p class="card-text">This app presents you with a set of trivia questions based on different categories, for when you are bored.</p>
+                <a class="btn btn-primary" asp-area="" asp-controller="Trivia" asp-action="ShowTrivia">Trivia time!</a>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section Scripts{
+    <script src="~/js/typewriter.js"></script>
+}
