@@ -32,6 +32,8 @@ public class Program
         services.AddScoped<ITriviaClientService, TriviaClientService>();
         services.AddScoped<ITriviaService, TriviaService>();
 
+		services.AddOptions();
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
