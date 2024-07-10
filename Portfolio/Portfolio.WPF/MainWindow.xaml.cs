@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -20,5 +21,10 @@ namespace Portfolio.WPF
 		{
 			InitializeComponent();
 		}
-	}
+
+		private void OpenExplorer_Click(object sender, RoutedEventArgs e)
+		{
+			Process.Start("explorer.exe", "");
+        }
+    }
 }

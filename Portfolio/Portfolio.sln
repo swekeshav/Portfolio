@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portfolio.Web", "Portfolio.Web\Portfolio.Web.csproj", "{0BBABEA9-F2A0-44D6-A11A-87991AB561EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portfolio.WPF", "Portfolio.WPF\Portfolio.WPF.csproj", "{12949535-9FE5-42F6-B1ED-B25053AE73C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portfolio.WPF", "Portfolio.WPF\Portfolio.WPF.csproj", "{12949535-9FE5-42F6-B1ED-B25053AE73C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
