@@ -5,10 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Portfolio.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow"
+        Height="450"
+        Width="800">
     <Grid>
-        <Button HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Click="OpenExplorer_Click">Open Explorer</Button>
+        <StackPanel VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+            <Button HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Click="OpenExplorer_Click"
+                    Margin="0,0,0,10"
+                    Content="Open Explorer"></Button>
+            <Button HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Click="OpenEnvironmentVariables_Click"
+                    Content="Open Environment Variables"></Button>
+        </StackPanel>
     </Grid>
 </Window>

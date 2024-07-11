@@ -24,7 +24,16 @@ namespace Portfolio.WPF
 
 		private void OpenExplorer_Click(object sender, RoutedEventArgs e)
 		{
-			Process.Start("explorer.exe", "");
+			Process.Start("explorer.exe", "E:");
         }
+
+		private void OpenEnvironmentVariables_Click(object sender, RoutedEventArgs e)
+		{
+			ProcessStartInfo processStartInfo = new("SystemPropertiesAdvanced")
+			{
+				UseShellExecute = true
+			};
+			Process.Start(processStartInfo);
+		}
     }
 }
