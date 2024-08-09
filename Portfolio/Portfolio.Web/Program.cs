@@ -31,6 +31,7 @@ public class Program
 
         services.AddScoped<ITriviaClientService, TriviaClientService>();
         services.AddScoped<ITriviaService, TriviaService>();
+        services.AddScoped<ITodosService, TodosService>();
 
         var app = builder.Build();
 

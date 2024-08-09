@@ -1,0 +1,12 @@
+﻿@model Portfolio.Web.Models.TodoViewModel
+@{
+    Layout = "_Layout";
+}
+
+<div>
+    <h3>Todo List</h3>
+    @foreach(var todo in Model.Todos)
+    {
+        <div>@todo.Title</div>
+    }
+</div>
