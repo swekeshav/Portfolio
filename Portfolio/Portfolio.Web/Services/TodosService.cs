@@ -4,14 +4,14 @@ namespace Portfolio.Web.Services;
 
 public class TodosService : ITodosService
 {
-    static List<Todo> TodosSet { get; set; } = [];
+    static List<TodoViewModel> TodosSet { get; set; } = [];
 
     public void AddTodo(TodoInputViewModel newTodo)
     {
-        TodosSet.Add(new Todo { Title = newTodo.Title?? "Test Todo" });
+        TodosSet.Add(new TodoViewModel { Title = newTodo.Title?? "Test Todo" });
     }
 
-    public async Task<TodoViewModel> GetTodos()
+    public async Task<FrontPageViewModel> GetTodos()
     {
         await Task.Delay(1);
 
@@ -27,7 +27,7 @@ public class TodosService : ITodosService
         //    });
         //}
 
-        return new TodoViewModel
+        return new FrontPageViewModel
         {
             Todos = TodosSet
         };

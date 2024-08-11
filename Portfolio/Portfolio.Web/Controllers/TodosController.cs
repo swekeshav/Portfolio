@@ -16,9 +16,9 @@ public class TodosController(ITodosService todosService): Controller
     }
 
     [HttpPost]
-    public IActionResult AddTodo(TodoViewModel newTodo)
+    public IActionResult AddTodo([FromForm]TodoInputViewModel newTodo)
     {
-        _todosService.AddTodo(newTodo.TodoInput);
+        _todosService.AddTodo(newTodo);
         return RedirectToAction("ShowTodos");
     }
 }
