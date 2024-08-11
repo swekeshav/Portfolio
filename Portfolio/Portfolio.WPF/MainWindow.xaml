@@ -19,7 +19,12 @@
             <Button HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Click="OpenEnvironmentVariables_Click"
+                    Margin="0,0,0,10"
                     Content="Open Environment Variables"></Button>
-        </StackPanel>
+			<Button HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Click="RestartApplication_Click"
+                    Content="Restart Application"></Button>
+		</StackPanel>
     </Grid>
 </Window>
