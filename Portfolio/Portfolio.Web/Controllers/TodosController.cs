@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Portfolio.Web.Models;
 using Portfolio.Web.Services;
 
 namespace Portfolio.Web.Controllers;
@@ -12,5 +13,12 @@ public class TodosController(ITodosService todosService): Controller
     {
         var todos = await _todosService.GetTodos();
         return View(todos);
+    }
+
+    [HttpPost]
+    public IActionResult AddTodo([FromForm]TodoInputViewModel newTodo)
+    {
+        _todosService.AddTodo(newTodo);
+        return RedirectToAction("ShowTodos");
     }
 }
