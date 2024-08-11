@@ -1,12 +1,25 @@
 ﻿@model Portfolio.Web.Models.TodoViewModel
 @{
     Layout = "_Layout";
+    var count = 1;
 }
 
+
+<form asp-action="AddTodo" asp-controller="Todos" method="post" class="mb-5">
+    <div class="form-group mb-2">
+        <label asp-for="TodoInput.Title" class="control-label"></label>
+        <input asp-for="TodoInput.Title" class="form-control" />
+        <span asp-validation-for="TodoInput.Title" class="text-danger"></span>
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-primary">Add Todo</button>
+    </div>
+</form>
 <div>
     <h3>Todo List</h3>
     @foreach(var todo in Model.Todos)
     {
-        <div>@todo.Title</div>
+        <div>@(count++). @todo.Title</div>
     }
 </div>

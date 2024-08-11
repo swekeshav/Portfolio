@@ -2,5 +2,6 @@
 
 public class TodoViewModel
 {
-    public IEnumerable<Todo> Todos { get; set; } = new List<Todo>();
+    public IEnumerable<Todo> Todos { get; set; } = [];
+    public TodoInputViewModel TodoInput { get; set; } = null!;
 }
