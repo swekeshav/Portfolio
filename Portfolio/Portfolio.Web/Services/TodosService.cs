@@ -1,4 +1,5 @@
 ﻿using Portfolio.Web.Models;
+using System.Text.Json;
 
 namespace Portfolio.Web.Services;
 
@@ -9,6 +10,8 @@ public class TodosService : ITodosService
     public void AddTodo(TodoInputViewModel newTodo)
     {
         TodosSet.Add(new TodoViewModel { Title = newTodo.Title?? "Test Todo" });
+        var todosJson = JsonSerializer.Serialize(TodosSet);
+        File.WriteAllText("todos.json", todosJson);
     }
 
     public async Task<FrontPageViewModel> GetTodos()
