@@ -8,7 +8,7 @@ public class TodosService : ITodosService
     public async Task AddTodo(TodoInputViewModel newTodo)
     {
         List<TodoViewModel> todos = await LoadTodos();
-        todos.Add(new TodoViewModel { Title = newTodo.Title ?? "Test Todo" });
+        todos.Add(new TodoViewModel { Title = newTodo.Title ?? "Test Todo", UUID = Guid.NewGuid()});
         
         SaveTodos(todos);
     }
@@ -30,10 +30,14 @@ public class TodosService : ITodosService
 
     static async Task<List<TodoViewModel>> LoadTodos()
     {
-        var todosJson = await File.ReadAllTextAsync("todos.json");
+        string todosJson = "";
         List<TodoViewModel> todos;
         try
         {
+            if (File.Exists("todos.json"))
+            {
+                todosJson = await File.ReadAllTextAsync("todos.json");
+            }
             todos = JsonSerializer.Deserialize<List<TodoViewModel>>(todosJson) ?? [];
         }
         catch (Exception ex)
