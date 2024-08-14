@@ -4,12 +4,21 @@
     var count = 1;
 }
 
-<partial name="_AddTask" model="Model.TodoInput"/>
+<partial name="_AddTask" model="Model.TodoInput" />
 
 <div>
     <h3>Todo List</h3>
-    @foreach(var todo in Model.Todos)
-    {
-        <div>@(count++). @todo.Title</div>
+    @{
+        if (Model.Todos is not null)
+        {
+            foreach (var todo in Model.Todos)
+            {
+                <div>@(count++). @todo.Title</div>
+            }
+        }
+        else
+        {
+            <div>No todos found</div>
+        }
     }
 </div>
