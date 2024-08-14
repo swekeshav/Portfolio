@@ -4,6 +4,6 @@ namespace Portfolio.Web.Services;
 
 public interface ITodosService
 {
-    void AddTodo(TodoInputViewModel newTodo);
+    Task AddTodo(TodoInputViewModel newTodo);
     Task<FrontPageViewModel> GetTodos();
 }
