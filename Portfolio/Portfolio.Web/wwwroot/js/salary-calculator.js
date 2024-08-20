@@ -1,5 +1,15 @@
 var salarySlider = document.getElementById('salarySlider');
 var salaryInput = document.getElementById('salaryInput');
+var salaryValueButtons = document.querySelectorAll('#salaryValues button');
+
+salaryValueButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
+        var newSalary = button.value * 100000;
+        salarySlider.value = newSalary;
+        salaryInput.value = newSalary;
+        bifurcateSalary();
+    });
+});
 
 salarySlider.addEventListener('input', salarySliderChanged);
 salaryInput.addEventListener('input', salaryInputChanged);

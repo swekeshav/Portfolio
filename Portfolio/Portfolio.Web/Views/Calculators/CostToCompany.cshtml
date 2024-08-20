@@ -4,16 +4,33 @@
 <h1>Please enter a salary number</h1>
 
 <form class="mt-5 mb-5">
-    <label for="salarySlider" class="fs-5 form-label">Example range (10 Lakh - 1 Crore)</label>
-    <div class="d-flex">
-        <div class="col-2 me-3">
-            <input id="salaryInput" type="number" class="form-control fs-5" step="50000"
-                   min="2000000" max="8000000" value="5000000" />
+    <div class="row">
+        <label for="salarySlider" class="fs-5 form-label">Example range (10 Lakh - 1 Crore)</label>
+        <div class="d-flex">
+            <div class="col-2 me-3">
+                <input id="salaryInput" type="number" class="form-control fs-5" step="50000"
+                       min="2000000" max="8000000" value="5000000" />
+            </div>
+            <div class="col-10 align-self-center">
+                <input id="salarySlider" type="range" class="form-range" step="20000"
+                       min="2000000" max="8000000" value="5000000" />
+            </div>
         </div>
-        <div class="col-10 align-self-center">
-            <input id="salarySlider" type="range" class="form-range" step="20000"
-                   min="2000000" max="8000000" value="5000000" />
-        </div>
+    </div>
+    <div class="row mt-2">
+        <div id="salaryValues" class="col-12">
+            <button type="button" class="btn btn-outline-primary px-4 mt-2" value="30">30 lpa</button>
+            <button type="button" class="btn btn-outline-primary px-4 mt-2" value="35">35 lpa</button>
+            <button type="button" class="btn btn-outline-primary px-4 mt-2" value="40">40 lpa</button>
+            <button type="button" class="btn btn-outline-primary px-4 mt-2" value="45">45 lpa</button>
+            <button type="button" class="btn btn-outline-primary px-4 mt-2" value="50">50 lpa</button>
+            <button type="button" class="btn btn-outline-primary px-4 mt-2" value="55">55 lpa</button>
+            <button type="button" class="btn btn-outline-primary px-4 mt-2" value="60">60 lpa</button>
+            <button type="button" class="btn btn-outline-primary px-4 mt-2" value="65">65 lpa</button>
+            <button type="button" class="btn btn-outline-primary px-4 mt-2" value="70">70 lpa</button>
+            <button type="button" class="btn btn-outline-primary px-4 mt-2" value="75">75 lpa</button>
+            <button type="button" class="btn btn-outline-primary px-4 mt-2" value="80">80 lpa</button>
+        </div>                                                         
     </div>
 </form>
 
