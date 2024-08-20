@@ -46,4 +46,15 @@ public class TodosService : ITodosService
         }
         return todos;
     }
+
+    public async Task ToggleStatus(TodoStatusViewModel todoStatus)
+    {
+        var todos = await LoadTodos();
+        var todo = todos.FirstOrDefault(t => t.UUID == todoStatus.UUID);
+        if (todo != null)
+        {
+            todo.IsCompleted = !todo.IsCompleted;
+            SaveTodos(todos);
+        }
+    }
 }

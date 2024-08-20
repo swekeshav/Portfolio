@@ -6,4 +6,5 @@ public interface ITodosService
 {
     Task AddTodo(TodoInputViewModel newTodo);
     Task<FrontPageViewModel> GetTodos();
+    Task ToggleStatus(TodoStatusViewModel todoStatus);
 }
