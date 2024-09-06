@@ -1,0 +1,1 @@
+This project has been created by imitating the follow tutorial to learn the basics of Hangfire. [ASP.NET CORE: Background Processing with Hangfire](https://www.udemy.com/course/aspnet-core-background-processing-with-hangfire/)  

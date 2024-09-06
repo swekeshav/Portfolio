@@ -1,0 +1,6 @@
+@Hangfire.WebAPI_HostAddress = http://localhost:5265
+
+GET {{Hangfire.WebAPI_HostAddress}}/hangfire/
+Accept: application/json
+
+###
