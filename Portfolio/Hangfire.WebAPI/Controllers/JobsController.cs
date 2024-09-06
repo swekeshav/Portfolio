@@ -19,4 +19,14 @@ public class JobsController : ControllerBase
 
 		return Ok($"Job Id: {jobId}. Welcome email has been sent.");
 	}
+
+	[HttpPost("[action]")]
+	public IActionResult Discount()
+	{
+		const int timeInSeconds = 3;
+		var jobId = BackgroundJob.Schedule(() => Console.WriteLine("Welcome to Hangfire Implementation!"),
+			TimeSpan.FromSeconds(timeInSeconds));
+
+		return Ok($"Job Id: {jobId}. Discount email will be sent in {timeInSeconds} seconds.");
+	}
 }
