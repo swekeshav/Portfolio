@@ -29,4 +29,13 @@ public class JobsController : ControllerBase
 
 		return Ok($"Job Id: {jobId}. Discount email will be sent in {timeInSeconds} seconds.");
 	}
+
+	[HttpPost("[action]")]
+	public IActionResult Schedule()
+	{
+		const string cronPeriod = "*/10 * * * * *";
+		RecurringJob.AddOrUpdate("Schedule Report", () => Console.WriteLine("Reports have been generated."), cronPeriod);
+
+		return Ok("Report generation scheduled.");
+	}
 }
