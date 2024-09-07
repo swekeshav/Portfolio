@@ -38,4 +38,17 @@ public class JobsController : ControllerBase
 
 		return Ok("Report generation scheduled.");
 	}
+
+
+	[HttpPost("[action]")]
+	public IActionResult Unsubscribe()
+	{
+		const int timeInSeconds = 3;
+		var parentJobId = BackgroundJob.Schedule(() => Console.WriteLine("You have been unsubscribed!"),
+			TimeSpan.FromSeconds(timeInSeconds));
+
+		BackgroundJob.ContinueJobWith(parentJobId, () => Console.WriteLine("Sorry to see you go :("));
+
+		return Ok("You asked to be unsubscribed.");
+	}
 }
