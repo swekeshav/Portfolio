@@ -11,7 +11,7 @@ module.exports = defineConfig({
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    browserName: 'webkit',
+    browserName: 'chromium',
     headless: false,
   },
 });

@@ -14,14 +14,17 @@ test('Page Playwright Test', async ({page}) => {
     console.log(await page.title());
 });
 
-test('Test Selectors', async ({ page }) => {
+test.only('Test Selectors', async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     console.log(await page.title());
 
-    await page.locator("#username").fill("rahulshettyacademy");
+    await page.locator("#username").fill("rahulshetty");
     await page.locator("#password").fill("learning");
 
     await page.locator("#signInBtn").click();
 
-    await page.pause();
+    // var content = await page.locator("[style *= 'block']").textContent();
+    // console.log(content);
+
+    await expect(page.locator("[style *= 'block']")).toContainText("Incorrect username/password.")
 });
