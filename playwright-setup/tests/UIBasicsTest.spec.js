@@ -9,7 +9,19 @@ test('Browser Context Playwright Test', async ({browser}) => {
     await expect(page).toHaveTitle("Google Maps");
 });
 
-test.only('Page Playwright Test', async ({page}) => {
+test('Page Playwright Test', async ({page}) => {
     await page.goto("https://www.google.com/");
     console.log(await page.title());
+});
+
+test('Test Selectors', async ({ page }) => {
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+    console.log(await page.title());
+
+    await page.locator("#username").fill("rahulshettyacademy");
+    await page.locator("#password").fill("learning");
+
+    await page.locator("#signInBtn").click();
+
+    await page.pause();
 });
