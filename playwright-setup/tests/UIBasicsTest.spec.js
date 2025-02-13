@@ -15,16 +15,29 @@ test('Page Playwright Test', async ({page}) => {
 });
 
 test.only('Test Selectors', async ({ page }) => {
+    const userName = page.locator("#username");
+    const signInBtn = page.locator("#signInBtn");
+
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     console.log(await page.title());
 
-    await page.locator("#username").fill("rahulshetty");
+    //1st Attempt
+    await userName.fill("rahulshetty");
     await page.locator("#password").fill("learning");
 
-    await page.locator("#signInBtn").click();
+    await signInBtn.click();
 
     // var content = await page.locator("[style *= 'block']").textContent();
     // console.log(content);
 
     await expect(page.locator("[style *= 'block']")).toContainText("Incorrect username/password.")
+
+    //2nd Attempt
+    await userName.fill("");
+    await userName.fill("rahulshettyacademy");
+    
+    await signInBtn.click();
+
+    console.log(await page.locator('.card-body .card-title').nth(0).textContent());
+    console.log(await page.locator('.card-body .card-title').nth(1).textContent());
 });
