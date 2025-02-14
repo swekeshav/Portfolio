@@ -1,19 +1,5 @@
 const { test, expect } = require('@playwright/test');
 
-test('Browser Context Playwright Test', async ({browser}) => {
-    const context = await browser.newContext();
-    const page = await context.newPage();
-    await page.goto("https://www.google.com/maps");
-
-    console.log(await page.title());
-    await expect(page).toHaveTitle("Google Maps");
-});
-
-test('Page Playwright Test', async ({page}) => {
-    await page.goto("https://www.google.com/");
-    console.log(await page.title());
-});
-
 test('Reading TextContent', async ({ page }) => {
     const userName = page.locator("#username");
     const signInBtn = page.locator("#signInBtn");
@@ -29,7 +15,7 @@ test('Reading TextContent', async ({ page }) => {
     await expect(page.locator("[style *= 'block']")).toContainText("Incorrect username/password.")
 });
 
-test.only('Iterating through Selectors', async ({ page }) => {
+test('Iterating through Selectors', async ({ page }) => {
     const userName = page.locator("#username");
     const signInBtn = page.locator("#signInBtn");
     const cardTitles = page.locator('.card-body .card-title');
