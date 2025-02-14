@@ -6,13 +6,10 @@ test.only('Homework, login to website and read product Title', async ({ page }) 
 
     await page.goto("https://rahulshettyacademy.com/client"); 
 
-    const userName = page.getByRole('textbox', { name: 'email@example.com' });
-    const password = page.getByRole('textbox', { name: 'enter your passsword' });
-    const loginBtn = page.getByRole('button', { name: 'Login' });
+    await page.locator('#userEmail').fill(userId);
+    await page.locator('#userPassword').fill(pwd);
+    await page.locator('#login').click();
 
-    await userName.fill(userId);
-    await password.fill(pwd);
-    await loginBtn.click();
-
-    console.log(await page.locator('.card .card-body h5').nth(0).textContent());
+    await page.waitForLoadState('networkidle');
+    console.log(await page.locator('.card .card-body h5').wait.allTextContents());
 });
