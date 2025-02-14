@@ -66,5 +66,9 @@ test.only('Handling static Select Dropdowns', async ({ page }) => {
     await terms.uncheck();
     expect(await terms.isChecked()).toBeFalsy();
 
+    //Test BlinkingText
+    const documentLink = page.locator("[href*='documents-request']");
+    await expect(documentLink).toHaveAttribute('class', 'blinkingText');
+
     await page.pause();
 });
