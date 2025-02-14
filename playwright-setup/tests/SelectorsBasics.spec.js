@@ -15,7 +15,7 @@ test('Reading TextContent', async ({ page }) => {
     await expect(page.locator("[style *= 'block']")).toContainText("Incorrect username/password.")
 });
 
-test('Iterating through Selectors', async ({ page }) => {
+test('Iterating through Locators', async ({ page }) => {
     const userName = page.locator("#username");
     const signInBtn = page.locator("#signInBtn");
     const cardTitles = page.locator('.card-body .card-title');
@@ -44,4 +44,17 @@ test('Iterating through Selectors', async ({ page }) => {
     // This works because textContent() waits for elements to match the locator
     console.log(await page.locator('.card-body .card-title').nth(0).textContent());
     console.log(await page.locator('.card-body .card-title').nth(1).textContent());
+});
+
+test.only('Handling static Select Dropdowns', async ({ page }) => {
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+    await page.pause();
+
+    const dropdown = page.locator("select.form-control");
+    await dropdown.selectOption("consult");
+
+    await page.locator("[type='radio']").last().click();
+    await page.locator('#okayBtn').click();
+
+    await page.pause();
 });
