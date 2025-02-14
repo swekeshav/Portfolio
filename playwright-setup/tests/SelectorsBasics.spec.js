@@ -46,7 +46,7 @@ test('Iterating through Locators', async ({ page }) => {
     console.log(await page.locator('.card-body .card-title').nth(1).textContent());
 });
 
-test.only('Handling static Select Dropdowns', async ({ page }) => {
+test('Handling static Select Dropdowns', async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
 
     const dropdown = page.locator("select.form-control");
