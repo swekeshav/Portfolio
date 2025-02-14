@@ -10,6 +10,7 @@ test.only('Homework, login to website and read product Title', async ({ page }) 
     await page.locator('#userPassword').fill(pwd);
     await page.locator('#login').click();
 
-    await page.waitForLoadState('networkidle');
-    console.log(await page.locator('.card .card-body h5').wait.allTextContents());
+    const cardTitles = page.locator('.card .card-body h5');
+    await cardTitles.last().waitFor();
+    console.log(await cardTitles.allTextContents());
 });
