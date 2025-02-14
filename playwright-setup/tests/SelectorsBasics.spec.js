@@ -48,13 +48,23 @@ test('Iterating through Locators', async ({ page }) => {
 
 test.only('Handling static Select Dropdowns', async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
-    await page.pause();
 
     const dropdown = page.locator("select.form-control");
     await dropdown.selectOption("consult");
 
-    await page.locator("[type='radio']").last().click();
+    //Test User Radio
+    const userRadio = page.locator("[type='radio']").last();
+    await userRadio.click();
     await page.locator('#okayBtn').click();
+    await expect(userRadio).toBeChecked();
+
+    //Test Terms Radio
+    const terms = page.locator('#terms');
+    await terms.click();
+    await expect(terms).toBeChecked();
+
+    await terms.uncheck();
+    expect(await terms.isChecked()).toBeFalsy();
 
     await page.pause();
 });
