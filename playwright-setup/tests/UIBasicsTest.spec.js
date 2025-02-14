@@ -14,30 +14,48 @@ test('Page Playwright Test', async ({page}) => {
     console.log(await page.title());
 });
 
-test.only('Test Selectors', async ({ page }) => {
+test('Reading TextContent', async ({ page }) => {
     const userName = page.locator("#username");
     const signInBtn = page.locator("#signInBtn");
 
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     console.log(await page.title());
 
-    //1st Attempt
     await userName.fill("rahulshetty");
     await page.locator("#password").fill("learning");
 
     await signInBtn.click();
 
-    // var content = await page.locator("[style *= 'block']").textContent();
-    // console.log(content);
-
     await expect(page.locator("[style *= 'block']")).toContainText("Incorrect username/password.")
+});
 
-    //2nd Attempt
-    await userName.fill("");
+test.only('Iterating through Selectors', async ({ page }) => {
+    const userName = page.locator("#username");
+    const signInBtn = page.locator("#signInBtn");
+    const cardTitles = page.locator('.card-body .card-title');
+
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+    console.log(await page.title());
+
     await userName.fill("rahulshettyacademy");
+    await page.locator("#password").fill("learning");
     
     await signInBtn.click();
 
+    
+    // This will return 0 elements because allTextContents() OR all() does not wait for elements to match the locator,
+    // and instead immediately returns whatever is present on the page
+    
+    // var productTitles = await cardTitles.all();
+    // console.log(productTitles);
+    // productTitles.forEach(async el => {
+    //     console.log(await el.textContent());
+    // });
+    
+    // var productTitles = await cardTitles.allTextContents();
+    // console.log(productTitles); 
+    
+    // This works because textContent() waits for elements to match the locator
     console.log(await page.locator('.card-body .card-title').nth(0).textContent());
     console.log(await page.locator('.card-body .card-title').nth(1).textContent());
 });
