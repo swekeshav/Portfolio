@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
 
-test('Generate test using codegen', async ({ page }) => {
+test.skip('Generate test using codegen', async ({ page }) => {
     await page.goto('https://google.com')
 
     await page.getByRole('combobox', { name: 'Search' }).fill('rahulshettyacademy');

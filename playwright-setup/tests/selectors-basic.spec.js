@@ -69,6 +69,4 @@ test('Handling static Select Dropdowns', async ({ page }) => {
     //Test BlinkingText
     const documentLink = page.locator("[href*='documents-request']");
     await expect(documentLink).toHaveAttribute('class', 'blinkingText');
-
-    await page.pause();
 });
