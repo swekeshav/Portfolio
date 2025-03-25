@@ -1,0 +1,23 @@
+﻿<Window x:Class="Portfolio.WPF.Calculator"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Portfolio.WPF"
+        mc:Ignorable="d"
+        Title="Calculator" Height="450" Width="800">
+    <Grid>
+		<StackPanel Margin="10"
+					VerticalAlignment="Center">
+			<Label Content="Result" 
+				   Margin="0,0,0,10"/>
+			<TextBox Text="0"
+					 Margin="0,0,0,10"/>
+			<TextBox Text="0"
+					 Margin="0,0,0,10"/>
+			<Button Content="Calculate"
+					Background="DodgerBlue"
+					Foreground="White"/>
+		</StackPanel>
+	</Grid>
+</Window>
