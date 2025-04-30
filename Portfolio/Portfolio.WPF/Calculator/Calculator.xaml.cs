@@ -49,6 +49,14 @@ public partial class Calculator : Window
             : $"-{currentContent}";
     }
 
+    void BtnPercentage_Click(object sender, RoutedEventArgs args)
+    {
+        var currentContent = lblResult.Content.ToString()!;
+        if (currentContent.Equals("0"))
+            return;
+        lblResult.Content = $"{double.Parse(currentContent) / 100}";
+    }
+
     void BtnEquals_Click(object sender, RoutedEventArgs args)
     {
         OperateOnOperands();
@@ -86,7 +94,7 @@ public partial class Calculator : Window
             OperatorSymbols.Divide => LastNumber / currentNumber,
             _ => currentNumber,
         };
-        lblResult.Content = LastNumber.ToString();
+        lblResult.Content = "0";
         SelectedOperator = OperatorSymbols.None;
     }
 }
