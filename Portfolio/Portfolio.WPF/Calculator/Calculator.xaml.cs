@@ -13,17 +13,20 @@ public partial class Calculator : Window
         InitializeComponent();
     }
 
-    public double LastNumber { get; set; }
-    public OperatorSymbols SelectedOperator { get; set; } = OperatorSymbols.None;
+    bool resultCalculated = false;
+    double LastNumber { get; set; }
+    OperatorSymbols SelectedOperator { get; set; } = OperatorSymbols.None;
 
     void BtnNumber_Click(object sender, RoutedEventArgs args)
     {
         var newContent = (sender as Button)?.Content;
         var currentContent = lblResult.Content;
 
-        lblResult.Content = currentContent.Equals("0")
+        lblResult.Content = currentContent.Equals("0") || resultCalculated
             ? newContent
             : $"{currentContent}{newContent}";
+
+        resultCalculated = false;
     }
 
     void BtnPoint_Click(object sender, RoutedEventArgs args)
@@ -36,7 +39,10 @@ public partial class Calculator : Window
 
     void BtnClear_Click(object sender, RoutedEventArgs args)
     {
+        LastNumber = 0;
         lblResult.Content = "0";
+        resultCalculated = false;
+        SelectedOperator = OperatorSymbols.None;
     }
 
     void BtnNegate_Click(object sender, RoutedEventArgs args)
@@ -60,7 +66,6 @@ public partial class Calculator : Window
     void BtnEquals_Click(object sender, RoutedEventArgs args)
     {
         OperateOnOperands();
-        lblResult.Content = LastNumber.ToString("F2");
         SelectedOperator = OperatorSymbols.None;
     }
 
@@ -94,7 +99,11 @@ public partial class Calculator : Window
             OperatorSymbols.Divide => LastNumber / currentNumber,
             _ => currentNumber,
         };
-        lblResult.Content = "0";
+        lblResult.Content = LastNumber.ToString().Contains('.') 
+            ? LastNumber.ToString("F2")
+            : LastNumber.ToString();
+
+        resultCalculated = true;
         SelectedOperator = OperatorSymbols.None;
     }
 }
