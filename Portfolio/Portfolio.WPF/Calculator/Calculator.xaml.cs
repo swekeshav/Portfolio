@@ -98,12 +98,3 @@ public partial class Calculator : Window
         SelectedOperator = OperatorSymbols.None;
     }
 }
-
-public enum OperatorSymbols
-{
-    None,
-    Add,
-    Subtract,
-    Multiply,
-    Divide,
-}
