@@ -37,13 +37,15 @@
                 Content="AC"
                 FontSize="24"
                 Margin="5"
-                x:Name="btnAC" />
+                x:Name="btnClear"
+				Click="BtnClear_Click"/>
 		<Button Grid.Row="1"
                 Grid.Column="1"
                 Content="+/1"
                 FontSize="24"
                 Margin="5"
-                x:Name="btnNegate" />
+                x:Name="btnNegate" 
+				Click="BtnNegate_Click"/>
 		<Button Grid.Row="1"
                 Grid.Column="2"
                 Content="%"
@@ -55,7 +57,8 @@
                 Content="/"
                 FontSize="24"
                 Margin="5"
-                x:Name="btnDivision" />
+                x:Name="btnDivision"
+				Click="BtnOperator_Click"/>
 		<Button Grid.Row="2"
                 Grid.Column="0"
                 Content="7"
@@ -82,7 +85,8 @@
                 Content="*"
                 FontSize="24"
                 Margin="5"
-                x:Name="btnMultiplication" />
+                x:Name="btnMultiplication" 
+				Click="BtnOperator_Click"/>
 		<Button Grid.Row="3"
                 Grid.Column="0"
                 Content="4"
@@ -109,7 +113,8 @@
                 Content="-"
                 FontSize="24"
                 Margin="5"
-                x:Name="btnMinus" />
+                x:Name="btnMinus"
+				Click="BtnOperator_Click" />
 		<Button Grid.Row="4"
                 Grid.Column="0"
                 Content="1"
@@ -136,7 +141,8 @@
                 Content="+"
                 FontSize="24"
                 Margin="5"
-                x:Name="btnPlus" />
+                x:Name="btnPlus"
+				Click="BtnOperator_Click" />
 		<Button Grid.Row="5"
                 Grid.Column="0"
                 Content="0"
