@@ -60,7 +60,7 @@ public partial class Calculator : Window
     void BtnEquals_Click(object sender, RoutedEventArgs args)
     {
         OperateOnOperands();
-        lblResult.Content = LastNumber.ToString();
+        lblResult.Content = LastNumber.ToString("F2");
         SelectedOperator = OperatorSymbols.None;
     }
 
