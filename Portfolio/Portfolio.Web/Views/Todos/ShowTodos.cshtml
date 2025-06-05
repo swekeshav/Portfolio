@@ -1,57 +1,77 @@
 ﻿@model Portfolio.Web.Models.FrontPageViewModel
 @{
-    Layout = "_Layout";
+	Layout = "_Layout";
+	var todosList = Model.Todos.ToList();
 }
 
 <partial name="_AddTask" model="Model.TodoInput" />
 <style>
-    label {
-        transition: color 0.3s ease, opacity 0.3s ease; /* Add transition for color and opacity */
-    }
+	label {
+		transition: color 0.3s ease, opacity 0.3s ease; /* Add transition for color and opacity */
+	}
 
-    input[type=checkbox]:checked ~ label.strikethrough {
-        text-decoration: line-through; /* Apply line-through effect */
-        color: rgba(0, 0, 0, 0.5); /* Change color with reduced opacity (fade effect) */
-        opacity: 0.5; /* Adjust the opacity to create a fade effect */
-    }
+	input[type=checkbox]:checked ~ label.strikethrough {
+		text-decoration: line-through; /* Apply line-through effect */
+		color: rgba(0, 0, 0, 0.5); /* Change color with reduced opacity (fade effect) */
+		opacity: 0.5; /* Adjust the opacity to create a fade effect */
+	}
 </style>
 <div>
-    <h3>Todo List</h3>
-    @{
-        if (Model.Todos is not null)
-        {
-            foreach (var todo in Model.Todos)
-            {
-                <div class="form-check jsTaskEntry">
-                    <input class="form-check-input" type="checkbox" asp-for="@todo.IsCompleted" id="@todo.UUID">
-                    <label class="form-check-label strikethrough" for="@todo.UUID">
-                        @todo.Title
-                    </label>
-                </div>
-            }
-        }
-        else
-        {
-                    <div>No todos found</div>
-        }
-    }
+	<h3>Todo List</h3>
+
+	@if (Model.Todos is not null && todosList.Any())
+	{
+		<table class="table table-bordered table-hover">
+			<thead class="table-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Title</th>
+					<th scope="col">Due Date</th>
+					<th scope="col">Review Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				@for (int i = 0; i < Model.Todos.Count(); i++)
+				{
+					var todo = todosList[i];
+					<tr>
+						<th scope="row">@(@i + 1)</th>
+						<td class="@(todo.IsCompleted ? "text-decoration-line-through" : "")">
+							@todo.Title
+						</td>
+						<td>
+							@todo.DueDate?.ToString("yyyy-MM-dd")
+						</td>
+						<td>
+							@todo.ReviewDate?.ToString("yyyy-MM-dd")
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+	else
+	{
+		<div class="alert alert-info">No todos found</div>
+	}
+
 </div>
 <script>
-    var taskEntries = document.querySelectorAll('.jsTaskEntry');
-    taskEntries.forEach(function (taskEntry) {
-        taskEntry.addEventListener('click', function (e) {
-            var checkbox = taskEntry.querySelector('input[type="checkbox"]');
-            $ .ajax({
-                url: '/api/todos/status/toggle',
-                type: 'patch',
-                data: {
-                    uuid: checkbox.id,
-                    isComplete: checkbox.checked
-                },
-                success: function (data) {
-                    console.log(data);
-                }
-            });
-        });
-    });
+	var taskEntries = document.querySelectorAll('.jsTaskEntry');
+	taskEntries.forEach(function (taskEntry) {
+		taskEntry.addEventListener('click', function (e) {
+			var checkbox = taskEntry.querySelector('input[type="checkbox"]');
+			$ .ajax({
+				url: '/api/todos/status/toggle',
+				type: 'patch',
+				data: {
+					uuid: checkbox.id,
+					isComplete: checkbox.checked
+				},
+				success: function (data) {
+					console.log(data);
+				}
+			});
+		});
+	});
 </script>

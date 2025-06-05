@@ -7,6 +7,10 @@ public class TodoInputViewModel
 	[Required]
 	[Display(Name = "Title")]
 	public string? Title { get; set; }
+	[DataType(DataType.DateTime)]
+	public DateTime? DueDate { get; set; }
+	[DataType(DataType.DateTime)]
+	public DateTime? ReviewDate { get; set; }
 
 	public TodoViewModel ToTodo()
 	{
@@ -14,6 +18,8 @@ public class TodoInputViewModel
 		{
 			Title = Title ?? "Test Todo",
 			UUID = Guid.NewGuid(),
+			DueDate = DueDate,
+			ReviewDate = ReviewDate
 		};
 	}
 }
