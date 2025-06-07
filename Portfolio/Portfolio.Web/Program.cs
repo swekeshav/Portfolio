@@ -1,4 +1,5 @@
 using Portfolio.Web.Data;
+using Portfolio.Web.ExceptionHandler;
 using Portfolio.Web.Models;
 using Portfolio.Web.Services;
 using Serilog;
@@ -34,13 +35,17 @@ public static class Program
 		services.AddScoped<ITodosService, TodosService>();
 		services.AddScoped<IRepository<TodoViewModel>, TodosRepository>();
 
+		services.AddExceptionHandler<APIExceptionHandler>();
+		services.AddProblemDetails();
+
 		var app = builder.Build();
+
+		app.UseExceptionHandler();
 
 		// Configure the HTTP request pipeline.
 		if (!app.Environment.IsDevelopment())
 		{
-			app.UseExceptionHandler("/Home/Error");
-			// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+			//app.UseExceptionHandler("/Home/Error");
 			app.UseHsts();
 		}
 
