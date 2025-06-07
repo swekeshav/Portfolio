@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -14,19 +15,29 @@ namespace Portfolio.Web;
 public sealed class RazorExceptionHandler : IExceptionHandler
 {
 	readonly IRazorViewEngine _viewEngine;
+	readonly IExceptionPolicy _exceptionPolicy;
 	readonly ITempDataProvider _tempDataProvider;
 
 	public RazorExceptionHandler(
 		IRazorViewEngine viewEngine,
-		ITempDataProvider tempDataProvider)
+		ITempDataProvider tempDataProvider,
+		IExceptionPolicy exceptionPolicy)
 	{
 		_viewEngine = viewEngine;
 		_tempDataProvider = tempDataProvider;
+		_exceptionPolicy = exceptionPolicy;
 	}
 
 	public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
 	{
 		if (httpContext.Request.IsAjaxRequest()) return false;
+
+		if (_exceptionPolicy.ShouldLogout(exception))
+		{
+			await httpContext.SignOutAsync();
+			httpContext.Response.Redirect("/Account/Login", true);
+			return true;
+		}
 
 		httpContext.Response.StatusCode = 500;
 		httpContext.Response.ContentType = "text/html";
@@ -46,7 +57,7 @@ public sealed class RazorExceptionHandler : IExceptionHandler
 		var viewResult = _viewEngine.FindView(actionContext, "Error", isMainPage: false);
 		if (!viewResult.Success)
 		{
-			await httpContext.Response.WriteAsync("View 'Error' not found.");
+			await httpContext.Response.WriteAsync("View 'Error' not found.", cancellationToken: cancellationToken);
 			return true;
 		}
 

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +13,7 @@ public class RazorExceptionHandlerTests
 {
 	Mock<IRazorViewEngine> _viewEngine = null!;
 	Mock<ITempDataProvider> _tempDataProvider = null!;
+	Mock<IExceptionPolicy> _exceptionPolicy = null!;
 	RazorExceptionHandler _handler = null!;
 
 	[SetUp]
@@ -19,7 +21,8 @@ public class RazorExceptionHandlerTests
 	{
 		_viewEngine = new Mock<IRazorViewEngine>();
 		_tempDataProvider = new Mock<ITempDataProvider>();
-		_handler = new RazorExceptionHandler(_viewEngine.Object, _tempDataProvider.Object);
+		_exceptionPolicy = new Mock<IExceptionPolicy>();
+		_handler = new RazorExceptionHandler(_viewEngine.Object, _tempDataProvider.Object, _exceptionPolicy.Object);
 	}
 
 	[Test]
@@ -44,8 +47,10 @@ public class RazorExceptionHandlerTests
 		var responseStream = new MemoryStream();
 		context.Response.Body = responseStream;
 
+		_exceptionPolicy.Setup(x => x.ShouldLogout(It.IsAny<Exception>())).Returns(false);
+
 		_viewEngine.Setup(v => v.FindView(It.IsAny<Microsoft.AspNetCore.Mvc.ActionContext>(), "Error", false))
-			.Returns(ViewEngineResult.NotFound("Error", ["Error"]));
+			.Returns(ViewEngineResult.NotFound("Error", new[] { "Error" }));
 
 		//Act
 		var result = await _handler.TryHandleAsync(context, new Exception(), CancellationToken.None);
@@ -65,6 +70,8 @@ public class RazorExceptionHandlerTests
 		var context = new DefaultHttpContext();
 		var responseStream = new MemoryStream();
 		context.Response.Body = responseStream;
+
+		_exceptionPolicy.Setup(x => x.ShouldLogout(It.IsAny<Exception>())).Returns(false);
 
 		var viewMock = new Mock<IView>();
 		viewMock.SetupGet(v => v.Path).Returns("Error");
@@ -87,5 +94,40 @@ public class RazorExceptionHandlerTests
 
 		Assert.That(result, Is.True);
 		StringAssert.Contains("Rendered Error View", body);
+	}
+
+	[Test]
+	public async Task TryHandleAsync_ShouldLogout_TriggersSignOutAndRedirect()
+	{
+		//Arrange
+		var context = new DefaultHttpContext();
+		context.Response.Body = new MemoryStream();
+
+		_exceptionPolicy.Setup(x => x.ShouldLogout(It.IsAny<Exception>())).Returns(true);
+
+		var authService = new Mock<IAuthenticationService>();
+		authService.Setup(a => a.SignOutAsync(context, null, null)).Returns(Task.CompletedTask);
+		context.RequestServices = new Mock<IServiceProvider>()
+		.SetupService(typeof(IAuthenticationService), authService.Object);
+
+		//Act
+		var result = await _handler.TryHandleAsync(context, new Exception(), CancellationToken.None);
+
+		Assert.Multiple(() =>
+		{
+			Assert.That(context.Response.StatusCode, Is.EqualTo(301));
+			Assert.That(context.Response.Headers.Location, Is.EqualTo("/Account/Login"));
+		});
+		Assert.That(result, Is.True);
+	}
+}
+
+// Helper extension for IServiceProvider mocking
+public static class ServiceProviderMockExtensions
+{
+	public static IServiceProvider SetupService(this Mock<IServiceProvider> sp, Type serviceType, object instance)
+	{
+		sp.Setup(x => x.GetService(serviceType)).Returns(instance);
+		return sp.Object;
 	}
 }
