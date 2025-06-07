@@ -11,10 +11,10 @@ using System.Diagnostics;
 
 namespace Portfolio.Web;
 
-internal sealed class RazorExceptionHandler : IExceptionHandler
+public sealed class RazorExceptionHandler : IExceptionHandler
 {
-	private readonly IRazorViewEngine _viewEngine;
-	private readonly ITempDataProvider _tempDataProvider;
+	readonly IRazorViewEngine _viewEngine;
+	readonly ITempDataProvider _tempDataProvider;
 
 	public RazorExceptionHandler(
 		IRazorViewEngine viewEngine,
@@ -50,7 +50,7 @@ internal sealed class RazorExceptionHandler : IExceptionHandler
 			return true;
 		}
 
-		using var writer = new StringWriter();
+		await using var writer = new StringWriter();
 		var viewContext = new ViewContext(
 			actionContext,
 			viewResult.View,

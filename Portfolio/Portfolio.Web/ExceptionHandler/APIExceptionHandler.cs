@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Portfolio.Web;
 
-internal sealed class APIExceptionHandler : IExceptionHandler
+public sealed class APIExceptionHandler : IExceptionHandler
 {
 	readonly ILogger<APIExceptionHandler> _logger;
 
@@ -14,21 +14,16 @@ internal sealed class APIExceptionHandler : IExceptionHandler
 
 	public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
 	{
-		if (exception is not BadRequestException badRequestException)
-		{
-			return false;
-		}
-
 		_logger.LogError(
-			badRequestException,
+			exception,
 			"Exception occurred: {Message}",
-			badRequestException.Message);
+			exception.Message);
 
 		var problemDetails = new ProblemDetails
 		{
-			Status = StatusCodes.Status400BadRequest,
-			Title = "Bad Request",
-			Detail = badRequestException.Message
+			Status = StatusCodes.Status500InternalServerError,
+			Title = "Internal Server Error",
+			Detail = exception.Message
 		};
 
 		httpContext.Response.StatusCode = problemDetails.Status.Value;
@@ -37,21 +32,5 @@ internal sealed class APIExceptionHandler : IExceptionHandler
 			.WriteAsJsonAsync(problemDetails, cancellationToken);
 
 		return true;
-	}
-}
-
-internal sealed class BadRequestException : Exception
-{
-	public BadRequestException(string message)
-		: base(message)
-	{
-	}
-	public BadRequestException(string message, Exception innerException)
-		: base(message, innerException)
-	{
-	}
-
-	public BadRequestException()
-	{
 	}
 }
