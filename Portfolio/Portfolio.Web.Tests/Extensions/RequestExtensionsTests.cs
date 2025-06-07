@@ -20,6 +20,20 @@ public class RequestExtensionsTests
 	}
 
 	[Test]
+	public void IsAjaxRequest_ReturnsTrue_ForJsonAccept()
+	{
+		//Arrange
+		var context = new DefaultHttpContext();
+		context.Request.Headers.Accept = "application/json";
+
+		//Act
+		var result = context.Request.IsAjaxRequest();
+
+		//Assert
+		Assert.That(result, Is.True);
+	}
+
+	[Test]
 	public void IsAjaxRequest_ReturnsTrue_ForXmlHttpRequestHeader()
 	{
 		//Arrange
@@ -45,5 +59,19 @@ public class RequestExtensionsTests
 
 		//Assert
 		Assert.That(result, Is.False);
+	}
+
+	[Test]
+	public void IsAjaxRequest_ReturnsTrue_ForOctetStreamContentType()
+	{
+		//Arrange
+		var context = new DefaultHttpContext();
+		context.Request.ContentType = "application/octet-stream";
+
+		//Act
+		var result = context.Request.IsAjaxRequest();
+
+		//Assert
+		Assert.That(result, Is.True);
 	}
 }
