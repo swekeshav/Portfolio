@@ -50,7 +50,7 @@ public class RazorExceptionHandlerTests
 		_exceptionPolicy.Setup(x => x.ShouldLogout(It.IsAny<Exception>())).Returns(false);
 
 		_viewEngine.Setup(v => v.FindView(It.IsAny<Microsoft.AspNetCore.Mvc.ActionContext>(), "Error", false))
-			.Returns(ViewEngineResult.NotFound("Error", new[] { "Error" }));
+			.Returns(ViewEngineResult.NotFound("Error", ["Error"]));
 
 		//Act
 		var result = await _handler.TryHandleAsync(context, new Exception(), CancellationToken.None);
@@ -119,15 +119,5 @@ public class RazorExceptionHandlerTests
 			Assert.That(context.Response.Headers.Location, Is.EqualTo("/Account/Login"));
 		});
 		Assert.That(result, Is.True);
-	}
-}
-
-// Helper extension for IServiceProvider mocking
-public static class ServiceProviderMockExtensions
-{
-	public static IServiceProvider SetupService(this Mock<IServiceProvider> sp, Type serviceType, object instance)
-	{
-		sp.Setup(x => x.GetService(serviceType)).Returns(instance);
-		return sp.Object;
 	}
 }
