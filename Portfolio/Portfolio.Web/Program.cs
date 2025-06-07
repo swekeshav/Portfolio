@@ -1,5 +1,4 @@
 using Portfolio.Web.Data;
-using Portfolio.Web.ExceptionHandler;
 using Portfolio.Web.Models;
 using Portfolio.Web.Services;
 using Serilog;
