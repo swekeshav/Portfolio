@@ -12,7 +12,6 @@ public class TodosController(ITodosService todosService) : Controller
 	public async Task<IActionResult> ShowTodos()
 	{
 		var todos = await _todosService.GetTodos();
-		throw new Exception("This is a test exception to demonstrate error handling in TodosController.");
 		return View(todos);
 	}
 
