@@ -2,7 +2,7 @@
 
 namespace Portfolio.Web.Models;
 
-public class TodoInputViewModel
+public class TodoInputViewModel : IValidatableObject
 {
 	[Required]
 	[Display(Name = "Title")]
@@ -21,5 +21,13 @@ public class TodoInputViewModel
 			DueDate = DueDate,
 			ReviewDate = ReviewDate
 		};
+	}
+
+	public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+	{
+		if (ReviewDate > DueDate)
+		{
+			yield return new ValidationResult("Review date cannot be after due date.", [nameof(ReviewDate)]);
+		}
 	}
 }

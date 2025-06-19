@@ -5,7 +5,7 @@ public interface IExceptionPolicy
 	bool ShouldLogout(Exception exception);
 }
 
-public class ExceptionPolicy
+public class ExceptionPolicy: IExceptionPolicy
 {
 	public bool ShouldLogout(Exception exception)
 	{

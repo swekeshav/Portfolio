@@ -34,6 +34,7 @@ public static class Program
 		services.AddScoped<ITodosService, TodosService>();
 		services.AddScoped<IRepository<TodoViewModel>, TodosRepository>();
 
+		services.AddSingleton<IExceptionPolicy, ExceptionPolicy>();
 		services.AddExceptionHandler<RazorExceptionHandler>();
 		services.AddExceptionHandler<APIExceptionHandler>();
 		services.AddProblemDetails();

@@ -1,7 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations;
-
-namespace Portfolio.Web.Models;
+﻿namespace Portfolio.Web.Models;
 
 public class TodoViewModel
 {
