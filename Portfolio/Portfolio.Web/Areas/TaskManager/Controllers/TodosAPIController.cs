@@ -25,6 +25,6 @@ public class TodosAPIController : APIControllerBase
 	public async Task<IActionResult> AddTodo([FromForm] TodoInputViewModel newTodo)
 	{
 		await _todosService.AddTodo(newTodo);
-		return RedirectToAction("ShowTodos", "Todos");
+		return RedirectToAction("ShowTodos", "Todos", new { area = "TaskManager" });
 	}
 }
