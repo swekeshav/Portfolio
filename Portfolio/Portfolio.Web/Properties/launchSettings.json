@@ -13,7 +13,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "applicationUrl": "https://localhost:7130;http://localhost:5171",
-      "launchUrl": "Todos/ShowTodos",
+      "launchUrl": "TaskManager/Todos/ShowTodos",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

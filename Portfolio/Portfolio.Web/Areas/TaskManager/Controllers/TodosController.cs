@@ -3,6 +3,7 @@ using Portfolio.Web.Services;
 
 namespace Portfolio.Web.Controllers;
 
+[Area("TaskManager")]
 public class TodosController(ITodosService todosService) : Controller
 {
 	readonly ITodosService _todosService = todosService;
