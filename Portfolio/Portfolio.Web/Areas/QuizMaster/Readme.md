@@ -1,0 +1,1 @@
+This file contains changes made to the Trivia feature in the Portfolio.Web project.

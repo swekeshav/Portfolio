@@ -4,6 +4,7 @@ using Portfolio.Web.Services;
 
 namespace Portfolio.Web.Controllers;
 
+[Area("QuizMaster")]
 [TypeFilter(typeof(ViewExceptionFilter))]
 public class TriviaController : ControllerBase
 {
