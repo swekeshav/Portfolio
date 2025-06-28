@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portfolio.Web.Tests", "Port
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portfolio.API", "Portfolio.API\Portfolio.API.csproj", "{A9C8D0A7-616F-427C-AFC1-E29E7111C6F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeCodeCamp.MVC", "FreeCodeCamp.MVC\FreeCodeCamp.MVC.csproj", "{8866EB92-62A2-4AA3-AF1C-9F323ACC5B34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{A9C8D0A7-616F-427C-AFC1-E29E7111C6F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9C8D0A7-616F-427C-AFC1-E29E7111C6F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9C8D0A7-616F-427C-AFC1-E29E7111C6F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8866EB92-62A2-4AA3-AF1C-9F323ACC5B34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8866EB92-62A2-4AA3-AF1C-9F323ACC5B34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8866EB92-62A2-4AA3-AF1C-9F323ACC5B34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8866EB92-62A2-4AA3-AF1C-9F323ACC5B34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
