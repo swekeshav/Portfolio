@@ -8,7 +8,7 @@ namespace Portfolio.Web.Controllers.API;
 
 [Route("api/trivia")]
 [ApiController]
-public class TriviaAPIController : APIControllerBase
+public class TriviaAPIController : ControllerBase
 {
 	private readonly ITriviaService _triviaService;
 
@@ -24,7 +24,7 @@ public class TriviaAPIController : APIControllerBase
 		Paginator<TriviaQuestionInfo> paginator = PaginationHelper.BuildPaginator<TriviaQuestionInfo>(Request);
 		await _triviaService.RetrieveTriviaQuestions(paginator, parameters);
 
-		return Json(new
+		return Ok(new
 		{
 			draw = Request.Query["draw"].FirstOrDefault(),
 			recordsFiltered = paginator.Data!.Count,

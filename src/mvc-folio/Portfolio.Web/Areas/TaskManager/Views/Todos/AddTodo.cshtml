@@ -1,10 +1,11 @@
 ﻿@model TodoInputViewModel
-<form asp-action="AddTodo" asp-controller="TodosAPI" method="post" class="mb-5">
-    <div class="form-group mb-2">
-        <label asp-for="Title" class="control-label"></label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
-    </div>
+
+<form asp-action="AddTodo" asp-controller="Todos" method="post" class="mb-5">
+	<div class="form-group mb-2">
+		<label asp-for="Title" class="control-label"></label>
+		<input asp-for="Title" class="form-control" />
+		<span asp-validation-for="Title" class="text-danger"></span>
+	</div>
 	<div class="row">
 		<div class="col-md-6">
 			<div class="form-group mb-2">
@@ -22,7 +23,7 @@
 		</div>
 	</div>
 
-    <div>
-        <button type="submit" class="btn btn-primary">Add Todo</button>
-    </div>
+	<div>
+		<button type="submit" class="btn btn-primary">Add Todo</button>
+	</div>
 </form>

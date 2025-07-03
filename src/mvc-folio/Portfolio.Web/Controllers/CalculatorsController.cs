@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Portfolio.Web.Controllers;
 
-public class CalculatorsController : ControllerBase
+public class CalculatorsController : Controller
 {
 	public IActionResult CostToCompany()
 	{
