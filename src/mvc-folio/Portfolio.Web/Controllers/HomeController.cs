@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Portfolio.Web.Controllers
 {
-	public class HomeController : ControllerBase
+	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
 

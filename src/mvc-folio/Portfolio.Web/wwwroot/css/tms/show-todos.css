@@ -1,0 +1,9 @@
+﻿label {
+    transition: color 0.3s ease, opacity 0.3s ease;  /*Add transition for color and opacity*/ 
+}
+
+td:has(> input[type=checkbox]:checked) + td label.strikethrough {
+    text-decoration: line-through;  /*Apply line-through effect */
+    color: rgba(0, 0, 0, 0.5);  /*Change color with reduced opacity (fade effect) */
+    opacity: 0.5; /* Adjust the opacity to create a fade effect */
+}
